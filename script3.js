@@ -11,23 +11,24 @@
 </ol>
 <img src="${}">
 */
+
+
 window.addEventListener("load", function() {
    let form = document.getElementById("launchForm");
    let statusCheck = document.getElementById("launchStatusCheck");
    let pilotStatus = document.getElementById("pilotStatus");
-   let copilotStatus = document.querySelector("#copilotStatus");
-   let faultyItems = document.querySelector("#faultyItems");
-   let pilotNameNew = '';
-   let copilotNameNew = '';
-   let fuelLevelNew = 0;
-   let cargoMassNew = 0;
+   let copilotStatus = document.getElementById("copilotStatus");
+   let faultyItems = document.getElementById("faultyItems");
    form.addEventListener("submit", function(event) {
-`` // Decided not to require ONLY letters because valid names can still include punctuatio
-   // such as - . accent etc.
-      let pilotName = document.querySelector("#pilotName");
+      let pilotName = document.querySelector("input[name=pilotName");
+      let pilotNameNew = pilotName.value;
       let copilotName = document.querySelector("input[name=copilotName]");
+      let copilotNameNew = copilotName.value;
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
+      let fuelLevelNew = fuelLevel.value;
       let cargoMass = document.querySelector("input[name=cargoMass]");
+      let cargoMassNew = cargoMass.value;
+
       if (pilotName.value === '' || !isNaN(pilotName.value)) {
          alert("Pilot name must be entered as a string!");
          event.preventDefault();
@@ -44,29 +45,10 @@ window.addEventListener("load", function() {
          alert("Cargo mass must be entered as an integer!");
          event.preventDefault();
       };
-      pilotNameNew = pilotName.value;
-      copilotNameNew = copilotName.value;
-      cargoMassNew = cargoMass.value;
-      fuelLevelNew = fuelLevel.value;
-
-      // pilotStatus.innerHTML = `Pilot ${pilotNameNew} Ready`;
-      pilotStatus.innerHTML = `Pilot Bob Ready`;
-      console.log(pilotStatus.innerHTML + " inside");
+      pilotStatus.innerHTML = `Pilot ${pilotNameNew} Ready`;
+      // console.log(pilotStatus.innerHTML);
    });
-
+   console.log(pilotStatus.innerHTML);
    faultyItems.style.visibility = "visible";
-   // pilotStatus.innerHTML = `Pilot ${pilotName.value} Ready`;
-   console.log(pilotStatus.innerHTML + " outside");
-   //    copilotStatus.innerHTML = `Co-pilot ${copilotName.value} Ready`;
-   //    console.log(copilotStatus.innerHTML);
-      
 
-
-   fetch("https://handlers.education.launchcode.org/static/astronauts.json").then(function(response) {
-      response.json().then(function(json) {
-        //console.log(json);
-       // container.innerHTML += `<h3>Active Astronauts: ${astroCount}</h3>`;
-      });
-
-   });
 });
