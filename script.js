@@ -50,7 +50,6 @@ window.addEventListener("load", function() {
       fuelLevelNew = fuelLevel.value;
 
       // pilotStatus.innerHTML = `Pilot ${pilotNameNew} Ready`;
-      pilotStatus.innerHTML = `Pilot Bob Ready`;
       console.log(pilotStatus.innerHTML + " inside");
    });
 
