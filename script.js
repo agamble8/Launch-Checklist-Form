@@ -55,7 +55,6 @@ window.addEventListener("load", function() {
 
    faultyItems.style.visibility = "visible";
    // pilotStatus.innerHTML = `Pilot ${pilotName.value} Ready`;
-   console.log(pilotStatus.innerHTML + " outside");
    //    copilotStatus.innerHTML = `Co-pilot ${copilotName.value} Ready`;
    //    console.log(copilotStatus.innerHTML);
       
