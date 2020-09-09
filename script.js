@@ -13,14 +13,9 @@
 */
 window.addEventListener("load", function() {
    let form = document.getElementById("launchForm");
-   let statusCheck = document.getElementById("launchStatusCheck");
    let pilotStatus = document.getElementById("pilotStatus");
    let copilotStatus = document.querySelector("#copilotStatus");
    let faultyItems = document.querySelector("#faultyItems");
-   let pilotNameNew = '';
-   let copilotNameNew = '';
-   let fuelLevelNew = 0;
-   let cargoMassNew = 0;
    form.addEventListener("submit", function(event) {
 `` // Decided not to require ONLY letters because valid names can still include punctuatio
    // such as - . accent etc.
@@ -28,6 +23,7 @@ window.addEventListener("load", function() {
       let copilotName = document.querySelector("input[name=copilotName]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
       let cargoMass = document.querySelector("input[name=cargoMass]");
+      event.preventDefault();
       if (pilotName.value === '' || !isNaN(pilotName.value)) {
          alert("Pilot name must be entered as a string!");
          event.preventDefault();
@@ -44,27 +40,42 @@ window.addEventListener("load", function() {
          alert("Cargo mass must be entered as an integer!");
          event.preventDefault();
       };
-      pilotNameNew = pilotName.value;
-      copilotNameNew = copilotName.value;
-      cargoMassNew = cargoMass.value;
-      fuelLevelNew = fuelLevel.value;
-
-      // pilotStatus.innerHTML = `Pilot ${pilotNameNew} Ready`;
-      console.log(pilotStatus.innerHTML + " inside");
+      if (fuelLevel.value < 10000 || cargoMass.value > 10000) {
+         faultyItems.style.visibility = "visible";
+         pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
+         copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
+         document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
+         document.getElementById("launchStatus").style.color = "red";
+            if (fuelLevel.value < 10000) {
+               document.getElementById("fuelStatus").innerHTML = "Fuel level too low!"
+            };
+            if (cargoMass.value > 10000) {
+               document.getElementById("cargoMass").innerHTML = "Cargo mass too high!"
+            };
+      } else {
+         document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
+         document.getElementById("launchStatus").style.color = "green";
+      }
    });
 
-   faultyItems.style.visibility = "visible";
-   // pilotStatus.innerHTML = `Pilot ${pilotName.value} Ready`;
-   //    copilotStatus.innerHTML = `Co-pilot ${copilotName.value} Ready`;
-   //    console.log(copilotStatus.innerHTML);
-      
-
-
-   fetch("https://handlers.education.launchcode.org/static/astronauts.json").then(function(response) {
+   fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
       response.json().then(function(json) {
-        //console.log(json);
-       // container.innerHTML += `<h3>Active Astronauts: ${astroCount}</h3>`;
+      const missionTarget = document.getElementById("missionTarget");
+      let pickPlanet = function (num) {
+         return Math.floor(Math.random()*(num));
+      };
+      let planet = pickPlanet(json.length);
+      missionTarget.innerHTML = `
+      <h2>Mission Destination</h2>
+      <ol>
+         <li>Name: ${json[planet].name}</li>
+         <li>Diameter: ${json[planet].diameter}</li>
+         <li>Star: ${json[planet].star}</li>
+         <li>Distance from Earth: ${json[planet].distance}</li>
+         <li>Number of Moons: ${json[planet].moons}</li>
+      </ol>
+      <img src=${json[planet].image}></img>
+      `;
       });
-
    });
 });
