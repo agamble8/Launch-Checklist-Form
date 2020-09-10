@@ -40,7 +40,7 @@ window.addEventListener("load", function() {
                document.getElementById("fuelStatus").innerHTML = "Fuel level too low!"
             };
             if (cargoMass.value > 10000) {
-               document.getElementById("cargoMass").innerHTML = "Cargo mass too high!"
+               document.getElementById("cargoStatus").innerHTML = "Cargo mass too high!"
             };
       } else {
          launchStatus.innerHTML = "Shuttle is ready for launch";
