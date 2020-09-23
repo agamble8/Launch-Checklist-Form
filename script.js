@@ -9,16 +9,18 @@ window.addEventListener("load", function() {
    let pilotStatus = document.getElementById("pilotStatus");
    let copilotStatus = document.getElementById("copilotStatus");
    let launchStatus = document.getElementById("launchStatus");
+   let fuelStatus = document.getElementById("fuelStatus");
+   let cargoStatus = document.getElementById("cargoStatus");
    let faultyItems = document.querySelector("#faultyItems");
    form.addEventListener("submit", function(event) {
-`` // Decided not to require ONLY letters because valid names can still include punctuatio
+`` // Decided not to require ONLY letters because valid names can still include punctuation
    // such as - . accent etc.
       event.preventDefault();
       if (pilotName.value === '' || !isNaN(pilotName.value)) {
          alert("Pilot name must be entered as a string!");
          event.preventDefault();
       };
-      if (copilotName.value === '' || !isNaN(pilotName.value)) {
+      if (copilotName.value === '' || !isNaN(copilotName.value)) {
          alert("Co-pilot name must be entered as a string!");
          event.preventDefault();
       }; 
@@ -30,20 +32,23 @@ window.addEventListener("load", function() {
          alert("Cargo mass must be entered as an integer!");
          event.preventDefault();
       };
+      faultyItems.style.visibility = "visible";
       if (fuelLevel.value < 10000 || cargoMass.value > 10000) {
-         faultyItems.style.visibility = "visible";
+         // faultyItems.style.visibility = "visible";
          pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
          copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
          launchStatus.innerHTML = "Shuttle not ready for launch";
          launchStatus.style.color = "red";
             if (fuelLevel.value < 10000) {
-               document.getElementById("fuelStatus").innerHTML = "Fuel level too low!"
+               fuelStatus.innerHTML = "Fuel level too low!"
             };
             if (cargoMass.value > 10000) {
-               document.getElementById("cargoStatus").innerHTML = "Cargo mass too high!"
+               cargoStatus.innerHTML = "Cargo mass too high!"
             };
       } else {
          launchStatus.innerHTML = "Shuttle is ready for launch";
+         fuelStatus.innerHTML = "Fuel level high enough for launch";
+         cargoStatus.innerHTML = "Cargo mass low enough for launch"
          launchStatus.style.color = "green";
       };
    });
